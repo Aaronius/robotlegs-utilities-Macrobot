@@ -8,8 +8,6 @@ package org.robotlegs.utilities.macrobot.core
 {
 	import flash.events.Event;
 	
-	import org.osmf.layout.AbsoluteLayoutFacet;
-	import org.robotlegs.mvcs.Command;
 	import org.robotlegs.utilities.macrobot.AsyncCommand;
 
 	public class MacroBase extends AsyncCommand

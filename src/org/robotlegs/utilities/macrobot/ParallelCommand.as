@@ -6,8 +6,6 @@
 */
 package org.robotlegs.utilities.macrobot
 {
-	import flash.events.Event;
-	
 	import org.robotlegs.utilities.macrobot.core.MacroBase;
 
 	public class ParallelCommand extends MacroBase

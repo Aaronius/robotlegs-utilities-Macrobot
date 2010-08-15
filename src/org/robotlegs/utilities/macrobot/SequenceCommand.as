@@ -7,10 +7,6 @@
 package org.robotlegs.utilities.macrobot
 {
 	import org.robotlegs.utilities.macrobot.core.MacroBase;
-	
-	import flash.events.Event;
-	
-	import org.robotlegs.mvcs.Command;
 
 	public class SequenceCommand extends MacroBase
 	{
