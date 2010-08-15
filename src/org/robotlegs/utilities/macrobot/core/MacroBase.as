@@ -79,7 +79,7 @@ package org.robotlegs.utilities.macrobot.core
 class ExecutionDescriptor
 {
 	public function ExecutionDescriptor(commandClass:Class, payload:Object=null, 
-										payloadClass:Class=null, named:String='')
+			payloadClass:Class=null, named:String='')
 	{
 		_commandClass = commandClass;
 		_payload = payload;
