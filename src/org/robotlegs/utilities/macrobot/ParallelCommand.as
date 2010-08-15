@@ -20,7 +20,7 @@ package org.robotlegs.utilities.macrobot
 				numIncompleteExecutions = commands.length;
 				for each (var command:Object in commands)
 				{
-					(success || !atomic) ? executeCommand(command) : dispatchComplete(false);
+					(atomic || success) ? executeCommand(command) : dispatchComplete(false);
 				}
 			}
 			else

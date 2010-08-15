@@ -12,7 +12,7 @@ package org.robotlegs.utilities.macrobot.core
 
 	public class MacroBase extends AsyncCommand
 	{
-		public var atomic:Boolean = false;
+		public var atomic:Boolean = true;
 		protected var success:Boolean = true;
 		protected var commands:Array;
 		

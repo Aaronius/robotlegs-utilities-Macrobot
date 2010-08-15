@@ -30,7 +30,7 @@ package org.robotlegs.utilities.macrobot
 			super.commandCompleteHandler(success);
 			this.success &&= success;
 			executionIndex++;
-			(this.success || !atomic) ? executeNext() : dispatchComplete(false);
+			(atomic || this.success) ? executeNext() : dispatchComplete(false);
 		}
 	}
 }
