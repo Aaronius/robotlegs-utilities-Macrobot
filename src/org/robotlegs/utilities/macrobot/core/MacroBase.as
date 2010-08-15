@@ -59,6 +59,9 @@ package org.robotlegs.utilities.macrobot.core
 			commands.push(command);
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		override public function execute():void
 		{
 			super.execute();
