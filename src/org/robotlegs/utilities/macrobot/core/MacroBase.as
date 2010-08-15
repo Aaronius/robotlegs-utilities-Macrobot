@@ -126,7 +126,7 @@ package org.robotlegs.utilities.macrobot.core
 
 /**
  * Holds "meta" information regarding a command so when it becomes time to execute, the command can 
- * be instantiated, injected into, and then be executed.
+ * be instantiated, injected into, and then executed.
  */
 class CommandDescriptor
 {
