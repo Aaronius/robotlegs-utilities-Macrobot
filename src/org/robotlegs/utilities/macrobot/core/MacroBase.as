@@ -59,6 +59,12 @@ package org.robotlegs.utilities.macrobot.core
 			commands.push(command);
 		}
 		
+		override public function execute():void
+		{
+			super.execute();
+			success = true; // undo/redo compatibility
+		}
+		
 		/**
 		 * Executes a command.
 		 * 

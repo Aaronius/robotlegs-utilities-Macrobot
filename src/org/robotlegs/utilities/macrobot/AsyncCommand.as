@@ -39,6 +39,7 @@ package org.robotlegs.utilities.macrobot
 		 */
 		override public function execute():void
 		{
+			complete = false; // undo/redo compatibility
 			super.execute();
 			
 			// Maintain a reference to this command while it executes so it doesn't get
@@ -61,7 +62,6 @@ package org.robotlegs.utilities.macrobot
 			{
 				listener(success);
 			}
-			listeners = null;
 		}
 	}
 }

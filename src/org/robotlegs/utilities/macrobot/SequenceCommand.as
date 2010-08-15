@@ -27,6 +27,7 @@ package org.robotlegs.utilities.macrobot
 		override public function execute():void
 		{
 			super.execute();
+			executionIndex = 0; // undo/redo compatibility
 			executeNext();
 		}
 		
