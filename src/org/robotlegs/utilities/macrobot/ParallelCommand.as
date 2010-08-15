@@ -8,18 +8,33 @@ package org.robotlegs.utilities.macrobot
 {
 	import org.robotlegs.utilities.macrobot.core.MacroBase;
 
+	/**
+	 * A command for executing multiple other commands in parallel.  All commands will start
+	 * execution as simultaneously as possible in the order they were added.  This command will
+	 * not be marked complete until all commands have completed.  It can be nested inside other 
+	 * parallel or sequence commands.
+	 */
 	public class ParallelCommand extends MacroBase
 	{
-		protected var numIncompleteExecutions:uint = 0;
+		/**
+		 * The number of commands currently executing.
+		 */
+		protected var numCommandsExecuting:uint = 0;
 		
+		/**
+		 * @inheritDoc
+		 */
 		override public function execute():void
 		{
 			super.execute();
 			if (commands.length > 0)
 			{
-				numIncompleteExecutions = commands.length;
+				numCommandsExecuting = commands.length;
 				for each (var command:Object in commands)
 				{
+					// Only continue to subsequent commands if atomic = true or if all previous
+					// commands have been successful.  This is less useful in a parallel command
+					// than a sequence command but someone may find it useful.
 					(atomic || success) ? executeCommand(command) : dispatchComplete(false);
 				}
 			}
@@ -29,13 +44,16 @@ package org.robotlegs.utilities.macrobot
 			}
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		override protected function commandCompleteHandler(success:Boolean):void
 		{
 			super.commandCompleteHandler(success);
 			this.success &&= success;
-			numIncompleteExecutions--;
+			numCommandsExecuting--;
 			
-			if (numIncompleteExecutions == 0)
+			if (numCommandsExecuting == 0)
 			{
 				dispatchComplete(this.success);
 			}

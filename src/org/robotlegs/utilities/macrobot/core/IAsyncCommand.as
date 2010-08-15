@@ -8,6 +8,11 @@ package org.robotlegs.utilities.macrobot.core
 {
 	public interface IAsyncCommand
 	{
+		/**
+		 * Registers a function to be executed when this command completes.  The function must
+		 * accept a single boolean parameter which will indicate whether this command completed 
+		 * successfully.
+		 */
 		function addCompletionListener(listener:Function):void;
 	}
 }

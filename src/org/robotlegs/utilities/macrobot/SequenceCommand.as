@@ -8,16 +8,31 @@ package org.robotlegs.utilities.macrobot
 {
 	import org.robotlegs.utilities.macrobot.core.MacroBase;
 
+	/**
+	 * A command for executing multiple other commands in sequence in the order they were added.
+	 * In other words, the second command will not begin execution until the first command has
+	 * completed.  This command will not be marked complete until all commands have completed.  It 
+	 * can be nested inside other parallel or sequence commands.
+	 */
 	public class SequenceCommand extends MacroBase
 	{
+		/**
+		 * The index of the command in execution.
+		 */
 		protected var executionIndex:uint;
 		
+		/**
+		 * @inheritDoc
+		 */
 		override public function execute():void
 		{
 			super.execute();
 			executeNext();
 		}
 		
+		/**
+		 * Executes the next subcommand.
+		 */
 		protected function executeNext():void
 		{
 			executionIndex < commands.length ? 
@@ -25,6 +40,9 @@ package org.robotlegs.utilities.macrobot
 					dispatchComplete(success);
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		override protected function commandCompleteHandler(success:Boolean):void
 		{
 			super.commandCompleteHandler(success);

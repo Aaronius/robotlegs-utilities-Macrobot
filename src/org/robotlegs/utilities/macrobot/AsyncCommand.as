@@ -9,26 +9,50 @@ package org.robotlegs.utilities.macrobot
 	import org.robotlegs.mvcs.Command;
 	import org.robotlegs.utilities.macrobot.core.IAsyncCommand;
 
+	/**
+	 * Provides functionality for holding an asynchronous command in memory and dispatching
+	 * when the command is complete.
+	 */
 	public class AsyncCommand extends Command implements IAsyncCommand
 	{
+		/**
+		 * Registered listeners.
+		 */
 		protected var listeners:Array;
+		
+		/**
+		 * Whether the command has finished executing.
+		 */
 		protected var complete:Boolean = false;
 		
+		/**
+		 * @inheritDoc
+		 */
 		public function addCompletionListener(listener:Function):void
 		{
 			listeners ||= [];
 			listeners.push(listener);
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		override public function execute():void
 		{
 			super.execute();
+			
+			// Maintain a reference to this command while it executes so it doesn't get
+			// garbage collected.
 			if (!complete)
 			{
 				commandMap.detain(this);
 			}
 		}
 		
+		/**
+		 * Notifies any registered listeners of the completion of this command along with
+		 * whether or not it was successful.
+		 */ 
 		protected function dispatchComplete(success:Boolean):void
 		{
 			complete = true;
