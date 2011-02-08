@@ -27,7 +27,7 @@ package org.robotlegs.utilities.macrobot
 		override public function execute():void
 		{
 			super.execute();
-			if (commands.length > 0)
+			if (commands && commands.length > 0)
 			{
 				numCommandsExecuting = commands.length;
 				for each (var command:Object in commands)

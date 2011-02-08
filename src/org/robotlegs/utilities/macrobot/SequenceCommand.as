@@ -36,7 +36,7 @@ package org.robotlegs.utilities.macrobot
 		 */
 		protected function executeNext():void
 		{
-			executionIndex < commands.length ? 
+			commands && executionIndex < commands.length ? 
 					executeCommand(commands[executionIndex]) :
 					dispatchComplete(success);
 		}
