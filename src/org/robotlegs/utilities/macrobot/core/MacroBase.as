@@ -8,7 +8,10 @@ package org.robotlegs.utilities.macrobot.core
 {
 	import flash.events.Event;
 	
+	import org.robotlegs.core.IReflector;
+	import org.robotlegs.mvcs.Command;
 	import org.robotlegs.utilities.macrobot.AsyncCommand;
+	import org.swiftsuspenders.Reflector;
 	
 	/**
 	 * Base functionality for <code>ParallelCommand</code> and <code>SequenceCommand</code>.  This 
@@ -71,20 +74,100 @@ package org.robotlegs.utilities.macrobot.core
 		/**
 		 * Executes a command.
 		 * 
-		 * @param command A command or <code>CommandDescriptor</code> instance.
+		 * @param commandOrDescriptor A command or <code>CommandDescriptor</code> instance.
 		 */
-		protected function executeCommand(command:Object):void
+		protected function executeCommand(commandOrDescriptor:Object):void
 		{
-			if (command is CommandDescriptor)
+			var command:Object = prepareCommand(commandOrDescriptor);
+			var isAsync:Boolean = command is IAsyncCommand;
+			
+			if (isAsync)
 			{
-				var descriptor:CommandDescriptor = CommandDescriptor(command);
-				
+				IAsyncCommand(command).addCompletionListener(commandCompleteHandler);
+			}
+			
+			// If the command map is IMacroCommandMap, use it.  This is allows us to maintain
+			// a single point of execution within the application.  This can be very useful when
+			// it comes to debugging or having a custom command map with logging support, etc.
+			if (commandMap is IMacroCommandMap)
+			{
+				IMacroCommandMap(commandMap).executePrepared(command);
+			}
+			else
+			{
+				command.execute();
+			}
+			
+			if (!isAsync)
+			{
+				commandCompleteHandler(true);
+			}
+		}
+		
+		/**
+		 * Prepares a command by instantiation if necessary and fulfilling injections.
+		 * 
+		 * @param commandOrDescriptor An instantiated command object or a command descriptor.
+		 * 
+		 * @return A command instance with fulfilled injections.
+		 */
+		protected function prepareCommand(commandOrDescriptor:Object):Object
+		{
+			if (commandOrDescriptor is CommandDescriptor)
+			{
+				return prepareCommandFromDescriptor(CommandDescriptor(commandOrDescriptor));
+			}
+			else
+			{
+				injector.injectInto(commandOrDescriptor);
+				return commandOrDescriptor;
+			}
+		}
+		
+		/**
+		 * Instantiates and injects a command based on a command descriptor.
+		 * 
+		 * @param descriptor A command descriptor.
+		 * 
+		 * @return A command instance with fulfilled injections.
+		 */
+		protected function prepareCommandFromDescriptor(descriptor:CommandDescriptor):Object
+		{
+			var command:Object;
+			
+			// If we have an IMacroCommandMap, use it to prepare the command object.
+			if (commandMap is IMacroCommandMap)
+			{
+				command = IMacroCommandMap(commandMap).prepare(descriptor.commandClass, 
+					descriptor.payload, descriptor.payloadClass, descriptor.named);
+			}
+			// Otherwise, we'll do our best to prepare it ourselves.
+			else
+			{
 				// Perform injections.
-				// TODO: See if we can get commandMap.execute() to return the command instance so
-				// we can use it instead of this nastiness:
+				// Note: if RL's CommandMap ever implements an interface like IMacroCommandMap 
+				// we could use it instead and wouldn't need IMacroCommandMap or the code
+				// below at all.
 				if (descriptor.payload)
 				{
-					var payloadClass:Class = descriptor.payloadClass || Event;
+					var payloadClass:Class;
+					if (descriptor.payloadClass)
+					{
+						payloadClass = descriptor.payloadClass;
+					}
+					else
+					{
+						var reflector:IReflector = injector.getInstance(IReflector);
+						
+						if (reflector)
+						{
+							payloadClass = reflector.getClass(descriptor.payload);
+						}
+						else
+						{
+							payloadClass = Event;
+						}
+					}
 					injector.mapValue(payloadClass, descriptor.payload, descriptor.named);
 					command = injector.instantiate(descriptor.commandClass);
 					injector.unmap(payloadClass, descriptor.named);
@@ -94,24 +177,8 @@ package org.robotlegs.utilities.macrobot.core
 					command = injector.instantiate(descriptor.commandClass);
 				}
 			}
-			else
-			{
-				injector.injectInto(command);
-			}
 			
-			var isAsync:Boolean;
-			if (command is IAsyncCommand)
-			{
-				IAsyncCommand(command).addCompletionListener(commandCompleteHandler);
-				isAsync = true;
-			}
-			
-			command.execute();
-			
-			if (!isAsync)
-			{
-				commandCompleteHandler(true);
-			}
+			return command;
 		}
 		
 		/**
