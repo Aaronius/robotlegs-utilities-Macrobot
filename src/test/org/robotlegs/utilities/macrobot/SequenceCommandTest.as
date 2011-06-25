@@ -20,11 +20,71 @@ package test.org.robotlegs.utilities.macrobot
 			super();
 			commandClass = TestSequenceCommand;
 		}
+		
+		[Before]
+		override public function setUp():void
+		{
+			super.setUp();
+		}
+		
+		[After]
+		override public function tearDown():void
+		{
+			super.tearDown();
+		}
 
 		[Test(async)]
-		public function testFailExecutionWithAtomicTrue():void
+		override public function testSyncCommandInstanceExecution():void
 		{
-			Assert.assertTrue(true);
+			super.testSyncCommandInstanceExecution();
+		}
+		
+		[Test(async)]
+		override public function testAsyncCommandInstanceExecution():void
+		{
+			super.testAsyncCommandInstanceExecution();
+		}
+		
+		[Test(async)]
+		override public function testAsyncAndSyncCommandInstanceExecution():void
+		{
+			super.testAsyncAndSyncCommandInstanceExecution();
+		}
+		
+		[Test(async)]
+		override public function testSyncCommandDescriptorExecution():void
+		{
+			super.testSyncCommandDescriptorExecution();
+		}
+		
+		[Test(async)]
+		override public function testAsyncCommandDescriptorExecution():void
+		{
+			super.testAsyncCommandDescriptorExecution();
+		}
+		
+		[Test(async)]
+		override public function testAsyncAndSyncCommandDescriptorExecution():void
+		{
+			super.testAsyncAndSyncCommandDescriptorExecution();
+		}
+		
+		[Test(async)]
+		override public function testNoCommandExecution():void
+		{
+			super.testNoCommandExecution();
+		}
+		
+		[Test(async)]
+		override public function testFailedExecution():void
+		{
+			super.testFailedExecution();
+		}
+		
+		[Test(async)]
+		override public function testExecutionWithMacroCommandMap():void
+		{
+			super.testExecutionWithMacroCommandMap();
 		}
 		
 		[Test(async)]

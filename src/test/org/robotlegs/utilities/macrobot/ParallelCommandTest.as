@@ -14,13 +14,70 @@ package test.org.robotlegs.utilities.macrobot
 			commandClass = TestParallelCommand;
 		}
 		
-		// This is here only because all the other tests are in the parent class.
-		// Without this, this test class would not show up as a testing option
-		// in Flash Builder.  Is there a better way to do this?
-		[Test]
-		public function dummyTest():void
+		[Before]
+		override public function setUp():void
 		{
-			Assert.assertTrue(true);
+			super.setUp();
+		}
+		
+		[After]
+		override public function tearDown():void
+		{
+			super.tearDown();
+		}
+		
+		[Test(async)]
+		override public function testSyncCommandInstanceExecution():void
+		{
+			super.testSyncCommandInstanceExecution();
+		}
+		
+		[Test(async)]
+		override public function testAsyncCommandInstanceExecution():void
+		{
+			super.testAsyncCommandInstanceExecution();
+		}
+		
+		[Test(async)]
+		override public function testAsyncAndSyncCommandInstanceExecution():void
+		{
+			super.testAsyncAndSyncCommandInstanceExecution();
+		}
+		
+		[Test(async)]
+		override public function testSyncCommandDescriptorExecution():void
+		{
+			super.testSyncCommandDescriptorExecution();
+		}
+		
+		[Test(async)]
+		override public function testAsyncCommandDescriptorExecution():void
+		{
+			super.testAsyncCommandDescriptorExecution();
+		}
+		
+		[Test(async)]
+		override public function testAsyncAndSyncCommandDescriptorExecution():void
+		{
+			super.testAsyncAndSyncCommandDescriptorExecution();
+		}
+		
+		[Test(async)]
+		override public function testNoCommandExecution():void
+		{
+			super.testNoCommandExecution();
+		}
+		
+		[Test(async)]
+		override public function testFailedExecution():void
+		{
+			super.testFailedExecution();
+		}
+		
+		[Test(async)]
+		override public function testExecutionWithMacroCommandMap():void
+		{
+			super.testExecutionWithMacroCommandMap();
 		}
 		
 		override protected function wereSubcommandsExecutedAsExpected(ids:Vector.<uint>):Boolean

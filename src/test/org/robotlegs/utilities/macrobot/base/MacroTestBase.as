@@ -37,7 +37,6 @@ package test.org.robotlegs.utilities.macrobot.base
 		protected var eventDispatcher:IEventDispatcher;
 		protected var statusEvents:Vector.<SubcommandStatusEvent>;
 		
-		[Before]
 		public function setUp():void
 		{
 			var contextView:Sprite = new Sprite();
@@ -55,7 +54,6 @@ package test.org.robotlegs.utilities.macrobot.base
 			statusEvents = new Vector.<SubcommandStatusEvent>()
 		}
 		
-		[After]
 		public function tearDown():void
 		{
 			reflector = null;
@@ -65,7 +63,6 @@ package test.org.robotlegs.utilities.macrobot.base
 			statusEvents = null;
 		}
 		
-		[Test(async)]
 		public function testSyncCommandInstanceExecution():void
 		{
 			var subcommandFactory:Function = function(command:MacroBase, id:uint):void
@@ -78,7 +75,6 @@ package test.org.robotlegs.utilities.macrobot.base
 			testUsingFactory(subcommandFactory);
 		}
 		
-		[Test(async)]
 		public function testAsyncCommandInstanceExecution():void
 		{
 			var subcommandFactory:Function = function(command:MacroBase, id:uint):void
@@ -91,7 +87,6 @@ package test.org.robotlegs.utilities.macrobot.base
 			testUsingFactory(subcommandFactory);
 		}
 		
-		[Test(async)]
 		public function testAsyncAndSyncCommandInstanceExecution():void
 		{
 			var subcommandFactory:Function = function(command:MacroBase, id:uint):void
@@ -104,7 +99,6 @@ package test.org.robotlegs.utilities.macrobot.base
 			testUsingFactory(subcommandFactory);
 		}
 		
-		[Test(async)]
 		public function testSyncCommandDescriptorExecution():void
 		{
 			var subcommandFactory:Function = function(command:MacroBase, id:uint):void
@@ -115,7 +109,6 @@ package test.org.robotlegs.utilities.macrobot.base
 			testUsingFactory(subcommandFactory);
 		}
 		
-		[Test(async)]
 		public function testAsyncCommandDescriptorExecution():void
 		{
 			var subcommandFactory:Function = function(command:MacroBase, id:uint):void
@@ -126,7 +119,6 @@ package test.org.robotlegs.utilities.macrobot.base
 			testUsingFactory(subcommandFactory);
 		}
 		
-		[Test(async)]
 		public function testAsyncAndSyncCommandDescriptorExecution():void
 		{
 			var subcommandFactory:Function = function(command:MacroBase, id:uint):void
@@ -139,13 +131,11 @@ package test.org.robotlegs.utilities.macrobot.base
 			testUsingFactory(subcommandFactory);
 		}
 		
-		[Test(async)]
 		public function testNoCommandExecution():void
 		{
 			testUsingFactory(null, 0);
 		}
 		
-		[Test(async)]
 		public function testFailedExecution():void
 		{
 			var command:MacroBase = new commandClass();
@@ -170,7 +160,6 @@ package test.org.robotlegs.utilities.macrobot.base
 			command.execute();
 		}
 		
-		[Test(async)]
 		public function testExecutionWithMacroCommandMap():void
 		{
 			commandMap = new TestMacroCommandMap(eventDispatcher, injector, reflector);
