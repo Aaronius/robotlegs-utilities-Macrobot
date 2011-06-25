@@ -20,12 +20,6 @@ package org.robotlegs.utilities.macrobot.core
 	public class MacroBase extends AsyncCommand
 	{
 		/**
-		 * Whether the macro command should execute subsequent commands when a command fails.
-		 * If <code>atomic</code> is true, the macro command will continue executing commands.
-		 */
-		public var atomic:Boolean = true;
-		
-		/**
 		 * Whether all commands have completed successfully.
 		 */
 		protected var success:Boolean = true;

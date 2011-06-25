@@ -17,6 +17,12 @@ package org.robotlegs.utilities.macrobot
 	public class SequenceCommand extends MacroBase
 	{
 		/**
+		 * Whether the sequence command should execute subsequent commands when a command fails.
+		 * If <code>atomic</code> is true, the sequence command will continue executing commands.
+		 */
+		public var atomic:Boolean = true;
+		
+		/**
 		 * The index of the command in execution.
 		 */
 		protected var executionIndex:uint;

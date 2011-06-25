@@ -32,10 +32,7 @@ package org.robotlegs.utilities.macrobot
 				numCommandsExecuting = commands.length;
 				for each (var command:Object in commands)
 				{
-					// Only continue to subsequent commands if atomic = true or if all previous
-					// commands have been successful.  This is less useful in a parallel command
-					// than a sequence command but someone may find it useful.
-					(atomic || success) ? executeCommand(command) : dispatchComplete(false);
+					success ? executeCommand(command) : dispatchComplete(false);
 				}
 			}
 			else
