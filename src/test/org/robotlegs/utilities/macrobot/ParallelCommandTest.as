@@ -1,10 +1,8 @@
 package test.org.robotlegs.utilities.macrobot
 {
-	import flexunit.framework.Assert;
-	
+	import test.org.robotlegs.utilities.macrobot.base.MacroTestBase;
 	import test.org.robotlegs.utilities.macrobot.support.SubcommandStatusEvent;
 	import test.org.robotlegs.utilities.macrobot.support.TestParallelCommand;
-	import test.org.robotlegs.utilities.macrobot.base.MacroTestBase;
 
 	public class ParallelCommandTest extends MacroTestBase
 	{		

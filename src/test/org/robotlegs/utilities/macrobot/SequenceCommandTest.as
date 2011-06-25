@@ -1,17 +1,15 @@
 package test.org.robotlegs.utilities.macrobot
 {
-	import flexunit.framework.Assert;
-	
 	import org.flexunit.async.Async;
 	import org.robotlegs.utilities.macrobot.SequenceCommand;
 	
+	import test.org.robotlegs.utilities.macrobot.base.MacroTestBase;
 	import test.org.robotlegs.utilities.macrobot.support.CompletionDirective;
 	import test.org.robotlegs.utilities.macrobot.support.MacroCommandEvent;
 	import test.org.robotlegs.utilities.macrobot.support.SubcommandConfigEvent;
 	import test.org.robotlegs.utilities.macrobot.support.SubcommandStatusEvent;
 	import test.org.robotlegs.utilities.macrobot.support.TestAsyncCommand;
 	import test.org.robotlegs.utilities.macrobot.support.TestSequenceCommand;
-	import test.org.robotlegs.utilities.macrobot.base.MacroTestBase;
 	
 	public class SequenceCommandTest extends MacroTestBase
 	{		
@@ -103,8 +101,8 @@ package test.org.robotlegs.utilities.macrobot
 			}
 			
 			injector.injectInto(command);
-			eventDispatcher.addEventListener(SubcommandStatusEvent.EXECUTED, subcommand_statusHandler);
-			eventDispatcher.addEventListener(SubcommandStatusEvent.COMPLETE, subcommand_statusHandler);
+			eventDispatcher.addEventListener(SubcommandStatusEvent.EXECUTED, subcommand_statusHandler, false, 0, true);
+			eventDispatcher.addEventListener(SubcommandStatusEvent.COMPLETE, subcommand_statusHandler, false, 0, true);
 			
 			var ids:Vector.<uint> = new Vector.<uint>();
 			ids.push(1);
@@ -113,7 +111,7 @@ package test.org.robotlegs.utilities.macrobot
 					macro_completeHandler, 5000, 
 					{ids: ids}, 
 					macro_timeoutHandler)
-			eventDispatcher.addEventListener(MacroCommandEvent.COMPLETE, asyncHandler);
+			eventDispatcher.addEventListener(MacroCommandEvent.COMPLETE, asyncHandler, false, 0, true);
 			
 			command.execute();
 		}

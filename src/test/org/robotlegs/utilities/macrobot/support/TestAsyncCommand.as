@@ -8,7 +8,7 @@ package test.org.robotlegs.utilities.macrobot.support
 	
 	public class TestAsyncCommand extends AsyncCommand
 	{
-		protected var event:SubcommandConfigEvent;
+		public var event:SubcommandConfigEvent;
 		protected var timer:Timer;
 		
 		public function TestAsyncCommand(event:SubcommandConfigEvent)

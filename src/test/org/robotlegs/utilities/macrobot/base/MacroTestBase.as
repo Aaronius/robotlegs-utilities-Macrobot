@@ -155,7 +155,7 @@ package test.org.robotlegs.utilities.macrobot.base
 					testFailedExecution_completeHandler, 5000, 
 					null, 
 					macro_timeoutHandler)
-			eventDispatcher.addEventListener(MacroCommandEvent.COMPLETE, asyncHandler);
+			eventDispatcher.addEventListener(MacroCommandEvent.COMPLETE, asyncHandler, false, 0, true);
 			
 			command.execute();
 		}
@@ -203,8 +203,8 @@ package test.org.robotlegs.utilities.macrobot.base
 			}
 			
 			injector.injectInto(command);
-			eventDispatcher.addEventListener(SubcommandStatusEvent.EXECUTED, subcommand_statusHandler);
-			eventDispatcher.addEventListener(SubcommandStatusEvent.COMPLETE, subcommand_statusHandler);
+			eventDispatcher.addEventListener(SubcommandStatusEvent.EXECUTED, subcommand_statusHandler, false, 0, true);
+			eventDispatcher.addEventListener(SubcommandStatusEvent.COMPLETE, subcommand_statusHandler, false, 0, true);
 			
 			completeHandler ||= macro_completeHandler;
 			
@@ -212,7 +212,7 @@ package test.org.robotlegs.utilities.macrobot.base
 				completeHandler, 5000, 
 				{ids: ids}, 
 				macro_timeoutHandler)
-			eventDispatcher.addEventListener(MacroCommandEvent.COMPLETE, asyncHandler);
+			eventDispatcher.addEventListener(MacroCommandEvent.COMPLETE, asyncHandler, false, 0, true);
 			
 			command.execute();
 		}

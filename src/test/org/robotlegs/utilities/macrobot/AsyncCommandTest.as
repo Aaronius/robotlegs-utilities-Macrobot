@@ -9,7 +9,6 @@ package test.org.robotlegs.utilities.macrobot
 	
 	import org.robotlegs.adapters.SwiftSuspendersInjector;
 	import org.robotlegs.adapters.SwiftSuspendersReflector;
-	import org.robotlegs.base.CommandMap;
 	import org.robotlegs.base.MediatorMap;
 	import org.robotlegs.core.ICommandMap;
 	import org.robotlegs.core.IInjector;
