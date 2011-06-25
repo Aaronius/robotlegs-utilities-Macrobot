@@ -6,3 +6,7 @@ bin-debug
 bin
 bin-release
 libs
+
+/.FlexUnitSettings/FlexUnitApplicationLastRun.xml
+/.FlexUnitSettings/FlexUnitApplicationLastSelection.xml
+/src/FlexUnitApplication.mxml
