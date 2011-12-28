@@ -21,11 +21,6 @@ package org.robotlegs.utilities.macrobot
 		protected var listeners:Array;
 		
 		/**
-		 * Whether the command has finished executing.
-		 */
-		protected var complete:Boolean = false;
-		
-		/**
 		 * @inheritDoc
 		 */
 		public function addCompletionListener(listener:Function):void
@@ -39,15 +34,11 @@ package org.robotlegs.utilities.macrobot
 		 */
 		override public function execute():void
 		{
-			complete = false; // undo/redo compatibility
 			super.execute();
 			
 			// Maintain a reference to this command while it executes so it doesn't get
 			// garbage collected.
-			if (!complete)
-			{
-				commandMap.detain(this);
-			}
+			commandMap.detain(this);
 		}
 		
 		/**
@@ -56,7 +47,6 @@ package org.robotlegs.utilities.macrobot
 		 */ 
 		protected function dispatchComplete(success:Boolean):void
 		{
-			complete = true;
 			commandMap.release(this);
 			for each (var listener:Function in listeners)
 			{
