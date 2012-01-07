@@ -142,7 +142,7 @@ package org.robotlegs.utilities.macrobot.core
 				// Note: if RL's CommandMap ever implements an interface like IMacroCommandMap 
 				// we could use it instead and wouldn't need IMacroCommandMap or the code
 				// below at all.
-				if (descriptor.payload)
+				if (descriptor.payload != null)
 				{
 					var payloadClass:Class;
 					if (descriptor.payloadClass)
